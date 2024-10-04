@@ -179,8 +179,8 @@ const AddProduct = () => {
       newErrors.images = message;
       errorMessages.push(message);
     }
-
-    if (bulkPricing && bulkPricing.length > 0) {
+    
+    if (bulkPricing && bulkPricing.length > 0 && bulkPricing[0]?.quantity && bulkPricing[0]?.price) {
       bulkPricing.forEach((pricing, index) => {
         if (!pricing.quantity || pricing.quantity <= 1) {
           newErrors[`bulk_pricing_quantity_${index}`] =
