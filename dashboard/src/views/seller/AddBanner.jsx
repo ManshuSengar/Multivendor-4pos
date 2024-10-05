@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { overrideStyle } from "../../utils/utils";
 import { PropagateLoader } from "react-spinners";
@@ -7,15 +7,17 @@ import {
   add_banner,
   messageClear,
   get_banner,
-  update_banner,
 } from "../../store/Reducers/bannerReducer";
+
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
-const AddBanner = () => {
+const AddBanners = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const { userInfo } = useSelector((state) => state.userInfo);
+
+  const { userInfo } = useSelector((state) => state.auth);
+
   const [imageShow, setImageShow] = useState("");
   const [image, setImage] = useState("");
 
@@ -41,12 +43,7 @@ const AddBanner = () => {
     dispatch(add_banner(formData));
   };
 
-  const update = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    dispatch(update_banner({ info: formData, bannerId: banner._id }));
-  };
+  
 
   useEffect(() => {
     if (errorMessage) {
@@ -67,7 +64,7 @@ const AddBanner = () => {
 
   return (
     <div className="px-2 lg:px-7 pt-5 ">
-      <div className="w-full p-4 bg-[#283046] rounded-md">
+      <div className="w-full p-4  bg-[#283046] rounded-md">
         <div className="flex justify-between items-center pb-4">
           <h1 className="text-[#d0d2d6] text-xl font-semibold">Add banner</h1>
           <Link
@@ -77,7 +74,7 @@ const AddBanner = () => {
             Banners
           </Link>
         </div>
-        {!banner ? (
+        {!banner && (
           <div>
             <form onSubmit={add}>
               <div className="mb-6">
@@ -99,12 +96,8 @@ const AddBanner = () => {
                 />
               </div>
               {imageShow && (
-                <div className="mb-4 flex justify-center">
-                  <img
-                    className="max-w-full h-auto max-h-[180px] object-contain"
-                    src={imageShow}
-                    alt="image"
-                  />
+                <div className="mb-4">
+                  <img className="w-full h-auto" src={imageShow} alt="image" />
                 </div>
               )}
               <button
@@ -119,16 +112,19 @@ const AddBanner = () => {
               </button>
             </form>
           </div>
-        ) : (
+        )}
+        {banner && (
           <div>
-            <div className="mb-4 flex justify-center">
-              <img
-                className="max-w-full h-auto max-h-[180px] object-contain"
-                src={banner.banner}
-                alt="image"
-              />
-            </div>
-            <form onSubmit={update}>
+            {
+              <div className="mb-4">
+                <img
+                  className="w-full h-auto"
+                  src={banner.banner}
+                  alt="image"
+                />
+              </div>
+            }
+            <form onSubmit={add}>
               <div className="mb-6">
                 <label
                   className="flex justify-center items-center flex-col h-[180px] cursor-pointer border border-dashed hover:border-indigo-500 w-full text-[#d0d2d6]"
@@ -148,12 +144,8 @@ const AddBanner = () => {
                 />
               </div>
               {imageShow && (
-                <div className="mb-4 flex justify-center">
-                  <img
-                    className="max-w-full h-auto max-h-[180px] object-contain"
-                    src={imageShow}
-                    alt="image"
-                  />
+                <div className="mb-4">
+                  <img className="w-full h-auto" src={imageShow} alt="image" />
                 </div>
               )}
               <button
@@ -163,7 +155,7 @@ const AddBanner = () => {
                 {loader ? (
                   <PropagateLoader color="#fff" cssOverride={overrideStyle} />
                 ) : (
-                  "Update banner"
+                  "update banner"
                 )}
               </button>
             </form>
@@ -174,4 +166,4 @@ const AddBanner = () => {
   );
 };
 
-export default AddBanner;
+export default AddBanners;

@@ -15,11 +15,12 @@ export const add_banner = createAsyncThunk(
   }
 );
 
-export const update_banner = createAsyncThunk(
-  "banner/update_banner",
-  async ({ bannerId, info }, { fulfillWithValue, rejectWithValue }) => {
+export const delete_banner = createAsyncThunk(
+  "banner/delete_banner",
+  async (bannerId, { fulfillWithValue, rejectWithValue }) => {
+    console.log(bannerId);
     try {
-      const { data } = await api.put(`/banner/update/${bannerId}`, info, {
+      const { data } = await api.delete(`/banner/delete/${bannerId}`, {
         withCredentials: true,
       });
       return fulfillWithValue(data);
@@ -29,6 +30,7 @@ export const update_banner = createAsyncThunk(
   }
 );
 
+
 export const get_banner = createAsyncThunk(
   "banner/get_banner",
   async (sellerId, { fulfillWithValue, rejectWithValue }) => {
@@ -36,6 +38,7 @@ export const get_banner = createAsyncThunk(
       const { data } = await api.get(`/banner/get/${sellerId}`, {
         withCredentials: true,
       });
+      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -74,14 +77,14 @@ export const bannerReducer = createSlice({
     [get_banner.fulfilled]: (state, { payload }) => {
       state.banner = payload.banner;
     },
-    [update_banner.pending]: (state, _) => {
+    [delete_banner.pending]: (state, _) => {
       state.loader = true;
     },
-    [update_banner.rejected]: (state, { payload }) => {
+    [delete_banner.rejected]: (state, { payload }) => {
       state.loader = false;
       state.errorMessage = payload.message;
     },
-    [update_banner.fulfilled]: (state, { payload }) => {
+    [delete_banner.fulfilled]: (state, { payload }) => {
       state.loader = false;
       state.successMessage = payload.message;
       state.banner = payload.banner;

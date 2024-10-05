@@ -71,7 +71,7 @@ const Headers = () => {
                   </div>
                   <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
                     <img
-                      src="http://localhost:3000/images/language.png"
+                      src="http://142.93.71.196:3000/images/language.png"
                       alt=""
                     />
                     <span>
@@ -115,7 +115,7 @@ const Headers = () => {
                 <div className="flex justify-between items-center">
                   <Link to="/">
                     <img
-                      src="http://localhost:3000/images/logo.png"
+                      src="http://142.93.71.196:3000/images/logo.png"
                       alt="logo"
                       className="w-auto h-20 md:h-24" // Responsive height
                     />
@@ -243,13 +243,13 @@ const Headers = () => {
               <Link to="/">
                 <img
                   className="w-[190px] h-[70x]"
-                  src="http://localhost:3000/images/logo.png"
+                  src="http://142.93.71.196:3000/images/logo.png"
                   alt="logo"
                 />
               </Link>
               <div className="flex justify-star items-center gap-10">
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute">
-                  <img src="http://localhost:3000/images/language.png" alt="" />
+                  <img src="http://142.93.71.196:3000/images/language.png" alt="" />
                   <span>
                     <MdOutlineKeyboardArrowDown />
                   </span>

@@ -20,7 +20,7 @@ const Stripe = ({ price, orderId }) => {
     }
     const create_payment = async () => {
         try {
-            const { data } = await axios.post('http://localhost:8000/api/order/create-payment', { price }, { withCredentials: true })
+            const { data } = await axios.post('http://142.93.71.196:8000/api/order/create-payment', { price }, { withCredentials: true })
             setClientSecret(data.clientSecret)
         } catch (error) {
             console.log(error.response.data)

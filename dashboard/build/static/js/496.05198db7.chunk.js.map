@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/496.05198db7.chunk.js","mappings":"wJAEA,MAMA,EANiBA,KAETC,EAAAA,EAAAA,KAAA,OAAAC,SAAK,Y","sources":["views/Deactive.jsx"],"sourcesContent":["import React from 'react'\n\nconst Deactive = () => {\n    return (\n        <div>Deactive</div>\n    )\n}\n\nexport default Deactive"],"names":["Deactive","_jsx","children"],"sourceRoot":""}

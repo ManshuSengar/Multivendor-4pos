@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdashboard=self.webpackChunkdashboard||[]).push([[62],{4062:(a,e,s)=>{s.r(e),s.d(e,{default:()=>o});s(5043);var r=s(3216),d=s(9456),l=s(579);const o=()=>{const{role:a}=(0,d.d4)((a=>a.auth));return"seller"===a?(0,l.jsx)(r.C5,{to:"/seller/dashboard",replace:!0}):"admin"===a?(0,l.jsx)(r.C5,{to:"/admin/dashboard",replace:!0}):(0,l.jsx)(r.C5,{to:"/login",replace:!0})}}}]);
+//# sourceMappingURL=62.817ed475.chunk.js.map

@@ -7,4 +7,4 @@ export const overrideStyle = {
     alignItems: "center"
 }
 
-export const socket = io('http://localhost:8000')
+export const socket = io('http://142.93.71.196:8000')
