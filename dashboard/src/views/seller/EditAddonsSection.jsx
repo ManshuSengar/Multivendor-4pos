@@ -7,18 +7,23 @@ const EditAddonsSection = ({ addons, setAddons, errors }) => {
 
   const addOption = (addonIndex) => {
     // Clone addons array and options array immutably
-    const newAddons = addons.map((addon, i) => 
-      i === addonIndex 
-        ? { ...addon, options: [...addon.options, { text: "", price: "" }] } 
+    const newAddons = addons.map((addon, i) =>
+      i === addonIndex
+        ? { ...addon, options: [...addon.options, { text: "", price: "" }] }
         : addon
     );
     setAddons(newAddons);
   };
-  
+
   const removeOption = (addonIndex, optionIndex) => {
     const newAddons = addons.map((addon, i) =>
       i === addonIndex
-        ? { ...addon, options: addon.options.filter((_, oIndex) => oIndex !== optionIndex) }
+        ? {
+            ...addon,
+            options: addon.options.filter(
+              (_, oIndex) => oIndex !== optionIndex
+            ),
+          }
         : addon
     );
     setAddons(newAddons);
@@ -26,13 +31,24 @@ const EditAddonsSection = ({ addons, setAddons, errors }) => {
 
   const handleAddonChange = (index, field, value) => {
     const newAddons = addons.map((addon, i) =>
-      i === index
-        ? { ...addon, [field]: value }  
-        : addon
+      i === index ? { ...addon, [field]: value } : addon
     );
     setAddons(newAddons);
   };
 
+  const handleOptionChange = (addonIndex, optionIndex, field, value) => {
+    const newAddons = addons.map((addon, i) =>
+      i === addonIndex
+        ? {
+            ...addon,
+            options: addon.options.map((option, oIndex) =>
+              oIndex === optionIndex ? { ...option, [field]: value } : option
+            ),
+          }
+        : addon
+    );
+    setAddons(newAddons);
+  };
   const addNewAddon = () => {
     setAddons([
       ...addons,
@@ -105,11 +121,14 @@ const EditAddonsSection = ({ addons, setAddons, errors }) => {
                   type="text"
                   placeholder="Option value"
                   value={option.text}
-                  onChange={(e) => {
-                    const newOptions = [...addon.options];
-                    newOptions[optionIndex].text = e.target.value;
-                    handleAddonChange(addonIndex, "options", newOptions);
-                  }}
+                  onChange={(e) =>
+                    handleOptionChange(
+                      addonIndex,
+                      optionIndex,
+                      "text",
+                      e.target.value
+                    )
+                  }
                 />
                 {errors[`addon_option_text_${addonIndex}_${optionIndex}`] && (
                   <span className="text-red-500">
@@ -124,12 +143,16 @@ const EditAddonsSection = ({ addons, setAddons, errors }) => {
                     type="number"
                     placeholder="Price"
                     value={option.price}
-                    onChange={(e) => {
-                      const newOptions = [...addon.options];
-                      newOptions[optionIndex].price = e.target.value;
-                      handleAddonChange(addonIndex, "options", newOptions);
-                    }}
+                    onChange={(e) =>
+                      handleOptionChange(
+                        addonIndex,
+                        optionIndex,
+                        "price",
+                        e.target.value
+                      )
+                    }
                   />
+
                   <span className="ml-2">{currencySymbol}</span>
                   {errors[
                     `addon_option_price_${addonIndex}_${optionIndex}`

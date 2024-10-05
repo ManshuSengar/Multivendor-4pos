@@ -8,7 +8,6 @@ const AddonsSection = ({ addons, setAddons, errors }) => {
   const currencySymbol = userInfo?.currency?.symbol || '';
 
   const addOption = (addonIndex) => {
-    // Clone addons array and options array immutably
     const newAddons = addons.map((addon, i) => 
       i === addonIndex 
         ? { ...addon, options: [...addon.options, { text: "", price: "" }] } 
@@ -30,6 +29,21 @@ const AddonsSection = ({ addons, setAddons, errors }) => {
     const newAddons = addons.map((addon, i) =>
       i === index
         ? { ...addon, [field]: value }  
+        : addon
+    );
+    setAddons(newAddons);
+  };
+
+  // Function to handle individual option field changes
+  const handleOptionChange = (addonIndex, optionIndex, field, value) => {
+    const newAddons = addons.map((addon, i) =>
+      i === addonIndex
+        ? {
+            ...addon,
+            options: addon.options.map((option, oIndex) =>
+              oIndex === optionIndex ? { ...option, [field]: value } : option
+            ),
+          }
         : addon
     );
     setAddons(newAddons);
@@ -107,11 +121,7 @@ const AddonsSection = ({ addons, setAddons, errors }) => {
                   type="text"
                   placeholder="Option value"
                   value={option.text}
-                  onChange={(e) => {
-                    const newOptions = [...addon.options];
-                    newOptions[optionIndex].text = e.target.value;
-                    handleAddonChange(addonIndex, "options", newOptions);
-                  }}
+                  onChange={(e) => handleOptionChange(addonIndex, optionIndex, 'text', e.target.value)}
                 />
                 {errors[`addon_option_text_${addonIndex}_${optionIndex}`] && (
                   <span className="text-red-500">
@@ -126,22 +136,12 @@ const AddonsSection = ({ addons, setAddons, errors }) => {
                     type="number"
                     placeholder="Price"
                     value={option.price}
-                    onChange={(e) => {
-                      const newOptions = [...addon.options];
-                      newOptions[optionIndex].price = e.target.value;
-                      handleAddonChange(addonIndex, "options", newOptions);
-                    }}
+                    onChange={(e) => handleOptionChange(addonIndex, optionIndex, 'price', e.target.value)}
                   />
                   <span className="ml-2">{currencySymbol}</span>
-                  {errors[
-                    `addon_option_price_${addonIndex}_${optionIndex}`
-                  ] && (
+                  {errors[`addon_option_price_${addonIndex}_${optionIndex}`] && (
                     <span className="text-red-500">
-                      {
-                        errors[
-                          `addon_option_price_${addonIndex}_${optionIndex}`
-                        ]
-                      }
+                      {errors[`addon_option_price_${addonIndex}_${optionIndex}`]}
                     </span>
                   )}
                 </div>
