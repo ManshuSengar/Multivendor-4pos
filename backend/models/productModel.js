@@ -12,8 +12,8 @@ const addonSchema = new Schema({
 });
 
 const bulkPricingSchema = new Schema({
-    quantity: { type: Number, required: true },
-    price: { type: Number, required: true }
+    quantity: { type: Number, required: false },
+    price: { type: Number, required: false }
 });
 
 const productSchema = new Schema({

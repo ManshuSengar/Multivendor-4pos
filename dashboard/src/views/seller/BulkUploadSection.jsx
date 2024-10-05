@@ -13,8 +13,11 @@ const BulkUploadSection = ({ bulkPricing, setBulkPricing, errors }) => {
   };
 
   const handleBulkPricingChange = (index, field, value) => {
-    const updatedBulkPricing = [...bulkPricing];
-    updatedBulkPricing[index][field] = value;
+    const updatedBulkPricing = bulkPricing.map((pricing, i) =>
+      i === index
+        ? { ...pricing, [field]: value }  // Create a new object for the updated item
+        : pricing
+    );
     setBulkPricing(updatedBulkPricing);
   };
 

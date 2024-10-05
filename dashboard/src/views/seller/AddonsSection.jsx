@@ -7,21 +7,31 @@ const AddonsSection = ({ addons, setAddons, errors }) => {
   const { userInfo } = useSelector(state => state.auth);
   const currencySymbol = userInfo?.currency?.symbol || '';
 
-  const handleAddonChange = (addonIndex, field, value) => {
-    const newAddons = [...addons];
-    newAddons[addonIndex][field] = value;
-    setAddons(newAddons);
-  };
-
   const addOption = (addonIndex) => {
-    const newAddons = [...addons];
-    newAddons[addonIndex].options.push({ text: "", price: "" });
+    // Clone addons array and options array immutably
+    const newAddons = addons.map((addon, i) => 
+      i === addonIndex 
+        ? { ...addon, options: [...addon.options, { text: "", price: "" }] } 
+        : addon
+    );
+    setAddons(newAddons);
+  };
+  
+  const removeOption = (addonIndex, optionIndex) => {
+    const newAddons = addons.map((addon, i) =>
+      i === addonIndex
+        ? { ...addon, options: addon.options.filter((_, oIndex) => oIndex !== optionIndex) }
+        : addon
+    );
     setAddons(newAddons);
   };
 
-  const removeOption = (addonIndex, optionIndex) => {
-    const newAddons = [...addons];
-    newAddons[addonIndex].options.splice(optionIndex, 1);
+  const handleAddonChange = (index, field, value) => {
+    const newAddons = addons.map((addon, i) =>
+      i === index
+        ? { ...addon, [field]: value }  
+        : addon
+    );
     setAddons(newAddons);
   };
 
