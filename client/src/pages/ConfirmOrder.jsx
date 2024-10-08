@@ -60,7 +60,7 @@ const ConfirmOrder = () => {
     const orderId = localStorage.getItem('orderId')
     if (orderId) {
       try {
-        await axios.get(`http://142.93.71.196:8000/api/order/confirm/${orderId}`)
+        await axios.get(`http://localhost:8000/api/order/confirm/${orderId}`)
         localStorage.removeItem('orderId')  // Clear orderId from localStorage
         setLoader(false)
       } catch (error) {

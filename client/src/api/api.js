@@ -1,5 +1,5 @@
 import axios from 'axios'
-const local = 'http://142.93.71.196:8000'
+const local = 'http://localhost:8000'
 const production = ''
 const api = axios.create({
     baseURL: `${local}/api`,
